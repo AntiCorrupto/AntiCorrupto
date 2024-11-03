@@ -154,7 +154,7 @@ function LandDashboard() {
             </button>
             <button
               onClick={() => {
-                navigate('/dashboard/landcases');
+                navigate('/dashboard/land/cases');
               }}
               className="flex p-4 px-36 rounded-md w-16 bg-slate-600 hover:bg-slate-800 text-white justify-center text-nowrap"
             >
@@ -181,7 +181,7 @@ function LandDashboard() {
               }}
               className="px-4 pt-4 text-2xl font-bold hover:cursor-pointer"
             >
-              {land.id}
+              Land Number : {land.landIdentificationNumber}
             </p>
             <p className="pl-4 ">{land.landType}</p>
             <p className="pl-4 ">Dimension : {land.dimensionOfLand}</p>
@@ -193,7 +193,7 @@ function LandDashboard() {
               </div>
             </div>
           </div>
-          <Link to={`/dashboard/land/enquiries/${land.landId}`}>
+          <Link to={`/dashboard/land/enquiries/${land.id}`}>
             {/* <Link to={`/dashboard/land/transfer/${land.id}`}> */}
             <p className="p-4 text-lg font-bold">
               Owner: {land.currentOwner}

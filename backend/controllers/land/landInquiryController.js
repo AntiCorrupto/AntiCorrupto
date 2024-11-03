@@ -73,7 +73,8 @@ exports.getInquiryById = async (req, res) => {
 };
 
 exports.getInquiryBylandId = async (req, res) => {
-  const { landId } = req.params;
+  const { id } = req.params;
+  const landId = id;
 
   try {
     const lands = await prisma.landInquiry.findMany({
@@ -82,6 +83,8 @@ exports.getInquiryBylandId = async (req, res) => {
         land: true, // Fetch associated land details
       },
     });
+
+    console.log(lands);
 
     if (lands) {
       res.status(200).json(lands);
