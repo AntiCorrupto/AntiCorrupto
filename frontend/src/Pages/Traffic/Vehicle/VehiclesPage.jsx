@@ -16,9 +16,7 @@ const VehiclesPage = () => {
 
   const getallvehicles = async () => {
     const myToken = getToken();
-    console.log('token', myToken);
     const thisUser = await fetchUserDetails(myToken);
-    console.log('User Details Dashboard : ', thisUser);
     setMyUser(thisUser.data.id);
     const myvehicles = await getUserVehicles(thisUser.data.id);
     setVehicles(myvehicles);
@@ -33,7 +31,7 @@ const VehiclesPage = () => {
       setisLoggedd(false);
       navigate('/login');
     }
-  }, []);
+  }, [10]);
 
   return (
     <div>
@@ -81,7 +79,7 @@ const VehiclesPage = () => {
                 className="overflow-hidden rounded-lg shadow-md md:flex bg-white"
               >
                 <img
-                  src={vehicle.image}
+                  src={"/car.jpg"}
                   alt={vehicle.name}
                   // height={1}
                   // width={5}

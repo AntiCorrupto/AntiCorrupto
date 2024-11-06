@@ -18,6 +18,7 @@ import { Link } from 'react-router-dom';
 import { getAllLands } from '../../Utils/API/landAPI';
 import { fetchUserDetails, loginUser } from '../../Utils/API/authAPI';
 import { createInquiry } from '../../Utils/API/landInquiry';
+import Navbar from '../../components/Navbar';
 
 const style = {
   position: 'absolute',
@@ -72,7 +73,7 @@ function Market() {
       setisLoggedd(false);
       navigate('/login');
     }
-  }, []);
+  }, [10]);
 
   const handleSearchChange = (e) => {
     setSearchTerm(e.target.value);
@@ -117,7 +118,7 @@ function Market() {
     <>
       <ThemeProvider theme={theme}>
         <div className="h-screen">
-          <HeaderHome />
+          <Navbar />
           <div
             className="w-screen h-96 rounded flex flex-col items-center justify-center opacity-90"
             style={{
@@ -166,6 +167,8 @@ function Market() {
             </div>
           </div>
 
+          <div className="flex flex-row justify-center items-center  text-3xl pt-4 font-bold drop-shadow-xl">MarketPlace</div>
+
           <div>
             {lands.map((land, index) => (
               <li
@@ -182,7 +185,7 @@ function Market() {
                 <div className="h-full w-full flex flex-col backdrop-brightness-90  ">
                   <div className="w-3/4 ml-6 rounded-sm">
                     <p className="px-4 pt-4 text-2xl font-bold">
-                      {land.ownerId} : {land.id}
+                      {land.ownerId} : {land.landIdentificationNumber}
                     </p>
                     <p className="pl-4">Type: {land.type}</p>
                     <div className="flex flex-row">

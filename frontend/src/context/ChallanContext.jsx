@@ -62,30 +62,50 @@ const ChallanProvider = ({ children }) => {
     return challanContract;
   };
 
-  const addChallanToBlockchain = async (formData) => {
-    // const checkWallet = checkIfWalletIsConnect();
-    // if(checkWallet != 200) return alert('Please connect/install your wallet first');
+  const addChallanIdtoDB = async (account) => {
     try {
       const challanContract = await getChallanContract();
-      const { vehicleId, issueDate, paid, amount, location, reason } = formData;
 
-      console.log(challanContract);
+      const challan = await challanContract.getUserLastChallan(account);
+      console.log('your challan in add to db', challan);
+      const challanId = challan.challanId;
+      console.log('ChallanId from BlockChain : ', challanId);
 
-      const challanTransaction = await challanContract.issueChallan(
-        vehicleId,
-        amount,
-        reason,
-        location
-      );
-
-      setIsLoading(true);
-      console.log(`Loading - ${challanTransaction.hash}`);
-      await challanTransaction.wait();
-      console.log(`Success - ${challanTransaction.hash}`);
-      setIsLoading(false);
+      return challanId;
     } catch (err) {
       console.log(err);
     }
+  };
+
+  const addChallanToBlockchain = async (formData) => {
+    // const checkWallet = checkIfWalletIsConnect();
+    // if(checkWallet != 200) return alert('Please connect/install your wallet first');
+    // try {
+    const challanContract = await getChallanContract();
+    const { vehicleId, issueDate, paid, amount, location, reason } = formData;
+
+    // console.log(challanContract);
+
+    const challanTransaction = await challanContract.issueChallan(
+      vehicleId,
+      amount,
+      reason,
+      location
+    );
+
+
+    setIsLoading(true);
+    console.log(`Loading - ${challanTransaction.hash}`);
+    await challanTransaction.wait();
+    console.log(`Success - ${challanTransaction.hash}`);
+
+    const blockchainChallanId = await addChallanIdtoDB(currentAccount);
+    setIsLoading(false);
+
+    return blockchainChallanId;
+    // } catch (err) {
+    //   console.log(err);
+    // }
   };
 
   const getUserChallansfunc = async (account) => {
@@ -119,7 +139,7 @@ const ChallanProvider = ({ children }) => {
     try {
       const challanContract = await getChallanContract();
 
-      const { challanId, vehicleId, issueDate, paid, fine, location, reason } = formData;
+      const { challanId, vehicleId, issueDate, paid, fine, challanIdBlockchain } = formData;
 
       console.log(formData);
       console.log(fine);
@@ -140,12 +160,14 @@ const ChallanProvider = ({ children }) => {
       });
       console.log('parsedAmount : ', parsedAmount);
 
-      const challanTransaction = await challanContract.payChallan(challanId);
+      const challanTransaction = await challanContract.payChallan(challanIdBlockchain);
       setIsLoading(true);
       console.log(`Loading - ${challanTransaction.hash}`);
       await challanTransaction.wait();
       console.log(`Success - ${challanTransaction.hash}`);
       setIsLoading(false);
+      if (challanTransaction.hash) return 200;
+      else return 400;
     } catch (err) {
       console.log(err);
     }

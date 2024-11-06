@@ -1,8 +1,8 @@
 import axios from "axios";
 
-const API_URL = "http://192.168.18.179:3000"; //home
+// const API_URL = "http://192.168.18.179:3000"; //home
 // const API_URL = "http://172.16.92.66:3000"; //college
-// const API_URL = "http://192.168.226.45:3000/auth"; //
+const API_URL = "http://172.20.10.3:3000"; //
 
 
 export const getUserVehicles = async (userId) => {
@@ -25,11 +25,9 @@ export const getOneVehicles = async (vehicleId) => {
 };
 
 export const addVehicle = async (vehicle) => {
-	console.log("Vehicles from api ",vehicle);
 	try {
 		const response = await axios.post(`${API_URL}/vehicle/add`, vehicle);
-		console.log("in add api2");
-		// console.log(response);
+
 		return response;
 	} catch (error) {
 		throw error;
