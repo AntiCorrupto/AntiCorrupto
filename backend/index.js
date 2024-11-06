@@ -26,11 +26,11 @@ dotenv.config();
 // };
 
 const corsOptions = {
-  origin: ["https://anticorrupto-frontend.vercel.app", "http://localhost:5173"],
-  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-  allowedHeaders: ["Content-Type", "Authorization"],
-  credentials: true,
-  optionSuccessStatus: 200,
+	origin: ["https://anticorrupto-frontend.vercel.app", "http://localhost:5173"],
+	methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+	allowedHeaders: ["Content-Type", "Authorization"],
+	credentials: true,
+	optionSuccessStatus: 200,
 };
 
 app.use(bodyParser.json());
@@ -42,7 +42,7 @@ app.options("*", cors(corsOptions));
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerFile));
 
 app.get("/", (req, res) => {
-  res.send("Hello World!");
+	res.send("Hello World!");
 });
 
 app.use("/auth", authRouter);
@@ -57,5 +57,5 @@ app.use("/inquiry", landInquiryRouter);
 
 const port = 3000;
 app.listen(port, () => {
-  console.log(`Server is listening on port ${port}`);
+	console.log(`Server is listening on port ${port}`);
 });
