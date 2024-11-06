@@ -26,8 +26,7 @@ dotenv.config();
 // };
 
 const corsOptions = {
-  origin: 'https://anticorrupto.vercel.app',
-  // origin: [process.env.FRONTEND_BASE_URL],
+  origin: ["https://anticorrupto-frontend.vercel.app", "http://localhost:5173"],
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization"],
   credentials: true,
@@ -59,5 +58,4 @@ app.use("/inquiry", landInquiryRouter);
 const port = 3000;
 app.listen(port, () => {
   console.log(`Server is listening on port ${port}`);
-  console.log(`Swagger Docs available at http://localhost:${port}/api-docs`);
 });
